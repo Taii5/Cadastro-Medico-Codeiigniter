@@ -3,13 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Medicos extends CI_Controller
 {
-    public function __construct()
+public function __construct()
 {
     parent::__construct();
-
-    if (!$this->session->userdata('logado')) {
-        redirect('auth');
-    }
 
     $this->load->model('Medico_model');
     $this->load->model('Auditoria_model');
@@ -44,7 +40,8 @@ class Medicos extends CI_Controller
 
     // Salva um novo médico
     //Executado quando o formulário de cadastro é executado
-    public function salvar()
+
+ public function salvar()
     {
         $this->validar_formulario();//Método que contém as validações 
 
@@ -94,7 +91,6 @@ class Medicos extends CI_Controller
 
         redirect('medicos'); 
     }
-
     ////////////////
     //EDITAR MEDICO
     ////////////////
@@ -207,46 +203,62 @@ class Medicos extends CI_Controller
     /////////////////////////
 
     // Regras de validação
+
 private function validar_formulario()
 {
     $this->form_validation->set_rules(
         'nome_completo',
         'Nome completo',
-        'required'
+        'required|min_length[3]|max_length[100]',
+        array(
+            'required' => 'O campo Nome completo é obrigatório.',
+            'min_length' => 'O Nome completo deve ter pelo menos 3 caracteres.',
+            'max_length' => 'O Nome completo deve ter no máximo 100 caracteres.'
+        )
     );
 
     $this->form_validation->set_rules(
         'crm',
         'CRM',
-        'required'
+        'required|numeric|max_length[20]',
+        array(
+            'required' => 'O campo CRM é obrigatório.',
+            'numeric' => 'O CRM deve conter apenas números.',
+            'max_length' => 'O CRM deve ter no máximo 20 caracteres.'
+        )
     );
 
     $this->form_validation->set_rules(
         'especialidade',
         'Especialidade',
-        'required'
+        'required|min_length[3]|max_length[100]',
+        array(
+            'required' => 'O campo Especialidade é obrigatório.',
+            'min_length' => 'A Especialidade deve ter pelo menos 3 caracteres.',
+            'max_length' => 'A Especialidade deve ter no máximo 100 caracteres.'
+        )
     );
 
     $this->form_validation->set_rules(
         'telefone',
         'Telefone',
-        'required'
+        'required|min_length[10]|max_length[20]',
+        array(
+            'required' => 'O campo Telefone é obrigatório.',
+            'min_length' => 'O Telefone deve ter pelo menos 10 caracteres.',
+            'max_length' => 'O Telefone deve ter no máximo 20 caracteres.'
+        )
     );
 
     $this->form_validation->set_rules(
         'email',
         'E-mail',
-        'required|valid_email'
-    );
-
-    $this->form_validation->set_message(
-        'required',
-        'O campo {field} é obrigatório.'
-    );
-
-    $this->form_validation->set_message(
-        'valid_email',
-        'Digite um endereço de e-mail válido.'
+        'required|valid_email|max_length[100]',
+        array(
+            'required' => 'O campo E-mail é obrigatório.',
+            'valid_email' => 'Digite um E-mail válido.',
+            'max_length' => 'O E-mail deve ter no máximo 100 caracteres.'
+        )
     );
 }
 
