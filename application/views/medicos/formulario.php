@@ -60,12 +60,14 @@
                 	</label>
 
                 	<input
-                    	type="text"
-                    	name="nome_completo"
-                    	class="form-control"
-                    	value="<?= $medico?htmlspecialchars($medico->nome_completo) : set_value('nome_completo'); ?>"
-                    	required
-                	>
+    type="text"
+    name="nome_completo"
+    class="form-control"
+    value="<?= $medico ? html_escape($medico->nome_completo) : set_value('nome_completo'); ?>"
+    minlength="3"
+    maxlength="100"
+    required
+>
             	</div>
 
             	<div class="row">
@@ -76,26 +78,28 @@
                     	</label>
 
                     	<input
-                        	type="text"
-                        	name="crm"
-                        	class="form-control"
-                        	value="<?= $medico?htmlspecialchars($medico->crm) : set_value('crm'); ?>"
-                        	required
-                    	>
+    type="text"
+    name="crm"
+    class="form-control"
+    value="<?= $medico ? html_escape($medico->crm) : set_value('crm'); ?>"
+    maxlength="20"
+    required
+>
                 	</div>
 
                 	<div class="col-md-6 mb-3">
                     	<label class="form-label">
                         	Especialidade *
                     	</label>
-
-                    	<input
-                        	type="text"
-                        	name="especialidade"
-                        	class="form-control"
-                        	value="<?= $medico?htmlspecialchars($medico->especialidade) : set_value('especialidade'); ?>"
-                        	required
-                    	>
+<input
+    type="text"
+    name="especialidade"
+    class="form-control"
+    value="<?= $medico ? html_escape($medico->especialidade) : set_value('especialidade'); ?>"
+    minlength="3"
+    maxlength="100"
+    required
+>
                 	</div>
 
             	</div>
@@ -106,12 +110,14 @@
                 	</label>
 
                 	<input
-                    	type="text"
-                    	name="telefone"
-                    	class="form-control"
-                    	value="<?= $medico?htmlspecialchars($medico->telefone) : set_value('telefone'); ?>"
-                    	required
-                	>
+    type="text"
+    name="telefone"
+    class="form-control"
+    value="<?= $medico ? html_escape($medico->telefone) : set_value('telefone'); ?>"
+    minlength="10"
+    maxlength="20"
+    required
+>
             	</div>
 
             	<div class="mb-4">
@@ -119,13 +125,14 @@
                     	E-mail *
                 	</label>
 
-                	<input
-                    	type="email"
-                    	name="email"
-                    	class="form-control"
-                    	value="<?= $medico?htmlspecialchars($medico->email) : set_value('email'); ?>"
-                    	required
-                	>
+                <input
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    value="<?= $medico ? html_escape($medico->email) : set_value('email'); ?>"
+                    maxlength="100"
+                    required
+                >
             	</div>
 
             	<div class="d-flex justify-content-end gap-2">
