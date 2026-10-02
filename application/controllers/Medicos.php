@@ -43,20 +43,17 @@ public function __construct()
 
  public function salvar()
     {
-        $this->validar_formulario();//Método que contém as validações 
+$this->validar_formulario();
 
-        //Caso o form_validation correr 'falso':
-        if ($this->form_validation->run() == FALSE) {
-            $dados['medico'] = null;//Indica que o formulário continua sendo de cadastro
-            $dados['erro'] = '';//Mensagem de erro
-
-            $this->load->view('medicos/formulario', $dados);//Carrega novamente para o formulário
-            return;//Se a validação falhar, o programa não deve continuar tentando cadastrar.
-        }
+if ($this->form_validation->run() == FALSE) {
+    $this->novo();
+    return;
+}
         
         //Array com os dados que serão enviados pelo formulário de cadastro
         $dados = array(
             'nome_completo' => $this->input->post('nome_completo', TRUE),
+            'cpf' => $this->input->post('email', TRUE),
             'crm' => $this->input->post('crm', TRUE),
             'especialidade' => $this->input->post('especialidade', TRUE),
             'telefone' => $this->input->post('telefone', TRUE),
@@ -119,19 +116,16 @@ public function __construct()
         if (!$medico_antigo) {
             show_404();
         }
-
-        $this->validar_formulario();
+    $this->validar_formulario();
 
         if ($this->form_validation->run() == FALSE) {
-            $dados['medico'] = $medico_antigo;
-            $dados['erro'] = '';
-
-            $this->load->view('medicos/formulario', $dados);
-            return;
+        $this->editar($id);
+        return;
         }
 
         $dados = array(
             'nome_completo' => $this->input->post('nome_completo', TRUE),
+            'cpf' => $this->input->post('cpf', TRUE),
             'crm' => $this->input->post('crm', TRUE),
             'especialidade' => $this->input->post('especialidade', TRUE),
             'telefone' => $this->input->post('telefone', TRUE),
@@ -203,9 +197,9 @@ public function __construct()
     /////////////////////////
 
     // Regras de validação
-
 private function validar_formulario()
 {
+    // NOME COMPLETO
     $this->form_validation->set_rules(
         'nome_completo',
         'Nome completo',
@@ -217,6 +211,19 @@ private function validar_formulario()
         )
     );
 
+    //CPF
+    $this->form_validation->set_rules(
+        'cpf',
+        'Cpf',
+        'required|numeric|exact_length[11]',
+    array(
+        'required' => 'O campo CPF é obrigatório.',
+        'numeric' => 'O CPF deve conter apenas números.',
+        'exact_length' => 'O CPF deve ter exatamente 11 dígitos.'
+    )
+);
+
+    // CRM
     $this->form_validation->set_rules(
         'crm',
         'CRM',
@@ -228,6 +235,7 @@ private function validar_formulario()
         )
     );
 
+    // ESPECIALIDADE
     $this->form_validation->set_rules(
         'especialidade',
         'Especialidade',
@@ -239,28 +247,30 @@ private function validar_formulario()
         )
     );
 
+    // TELEFONE
     $this->form_validation->set_rules(
         'telefone',
         'Telefone',
-        'required|min_length[10]|max_length[20]',
-        array(
-            'required' => 'O campo Telefone é obrigatório.',
-            'min_length' => 'O Telefone deve ter pelo menos 10 caracteres.',
-            'max_length' => 'O Telefone deve ter no máximo 20 caracteres.'
-        )
-    );
+        'required|numeric|exact_length[11]',
+    array(
+        'required' => 'O campo Telefone é obrigatório.',
+        'numeric' => 'O Telefone deve conter apenas números.',
+        'exact_length' => 'O Telefone deve ter exatamente 11 dígitos.'
+    )
+);
 
+    // E-MAIL
     $this->form_validation->set_rules(
         'email',
         'E-mail',
         'required|valid_email|max_length[100]',
-        array(
-            'required' => 'O campo E-mail é obrigatório.',
-            'valid_email' => 'Digite um E-mail válido.',
-            'max_length' => 'O E-mail deve ter no máximo 100 caracteres.'
-        )
-    );
+    array(
+        'required' => 'O campo E-mail é obrigatório.',
+        'valid_email' => 'Digite um endereço de e-mail',
+        'max_length' => 'O E-mail deve ter no máximo 100 caracteres.'
+    )
+);
+}
 }
 
-}
 
