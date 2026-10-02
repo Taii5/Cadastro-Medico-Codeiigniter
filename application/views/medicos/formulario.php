@@ -60,6 +60,7 @@
                         name="nome_completo"
                         class="form-control <?= form_error('nome_completo') ? 'is-invalid' : '' ?>"
                         value="<?= $medico ? html_escape($medico->nome_completo) : set_value('nome_completo'); ?>"
+                        placeholder = "Ex: Leandro Dias"
                     >
 
                      <?= form_error('nome_completo', '<div style="color:red;">', '</div>'); ?>
@@ -79,6 +80,7 @@
                         id = "cpf"
                         class="form-control <?= form_error('cpf') ? 'is-invalid' : '' ?>"
                         value="<?= $medico ? html_escape($medico->cpf) : set_value('cpf'); ?>"
+                        placeholder = "Digite seu CPF"
                     >
 
                     <?= form_error('cpf', '<div style="color:red;">', '</div>'); ?>
@@ -99,6 +101,7 @@
                         name="crm"
                         class="form-control" 
                         value="<?= $medico ? html_escape($medico->crm) : set_value('crm'); ?>"
+                        placeholder = "Digite seu CRM"
                         > 
 
                        <?= form_error('crm', '<div style="color:red;">', '</div>'); ?>
@@ -117,6 +120,7 @@
                             name="especialidade"
                             class="form-control <?= form_error('especialidade') ? 'is-invalid' : '' ?>"
                             value="<?= $medico ? html_escape($medico->especialidade) : set_value('especialidade'); ?>"
+                            placeholder = "Digite sua especialidade"
                         >
 
                         <?= form_error('especialidade', '<div style="color:red;">', '</div>'); ?>
@@ -139,6 +143,7 @@
                         id = 'telefone'
                         class="form-control <?= form_error('telefone') ? 'is-invalid' : '' ?>"
                         value="<?= $medico ? html_escape($medico->telefone) : set_value('telefone'); ?>"
+                        placeholder = "Digite seu telefone"
                     >
 
                     <?= form_error('telefone', '<div style="color:red;">', '</div>'); ?>
@@ -158,6 +163,7 @@
                         name="email"
                         class="form-control <?= form_error('email') ? 'is-invalid' : '' ?>"
                         value="<?= $medico ? html_escape($medico->email) : set_value('email'); ?>"
+                        placeholder = "Digite seu e-mail"
                     >
 
                     <?= form_error('email', '<div style="color:red;">', '</div>'); ?>
