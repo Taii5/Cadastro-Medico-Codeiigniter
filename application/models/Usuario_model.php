@@ -7,4 +7,12 @@ class Usuario_model extends CI_Model
     {
         return $this->db->insert('usuarios', $dados);
     }
+
+    public function buscar_por_email($email)
+    {
+        return $this->db
+            ->where('email', $email)
+            ->get('usuarios')
+            ->row();
+    }
 }
