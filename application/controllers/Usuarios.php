@@ -1,3 +1,4 @@
+
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -9,6 +10,7 @@ class Usuarios extends CI_Controller
 
         $this->load->model('Usuario_model');
         $this->load->library('form_validation');
+        $this->load->library('session');
         $this->load->helper('url');
     }
 
@@ -33,7 +35,7 @@ class Usuarios extends CI_Controller
             'email',
             'E-mail',
             'required|valid_email|is_unique[usuarios.email]',
-        array(
+            array(
                 'required' => 'O campo E-mail é obrigatório.',
                 'valid_email' => 'Digite um E-mail válido.',
                 'is_unique' => 'Este E-mail já está cadastrado.'
@@ -68,14 +70,22 @@ class Usuarios extends CI_Controller
         $dados = array(
             'nome' => $this->input->post('nome', TRUE),
             'email' => $this->input->post('email', TRUE),
-            'senha' => md5($this->input->post('senha'))
+            'senha' => md5($this->input->post('senha', TRUE))
         );
 
+        // Cadastra o usuário
         $this->Usuario_model->cadastrar($dados);
 
-        redirect('auth');
+        // Busca o usuário recém-cadastrado
+        $usuario = $this->Usuario_model->buscar_por_email($dados['email']);
+
+        // Cria a sessão
+        $this->session->set_userdata(
+            'usuario_logado',
+            $usuario
+        );
+
+        // Entra diretamente no sistema
+        redirect('medicos');
     }
 }
-
-
-
