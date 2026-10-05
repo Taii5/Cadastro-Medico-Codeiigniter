@@ -21,12 +21,13 @@ class Medico_model extends CI_Model
     }
 
     // Busca um médico pelo ID
-    public function buscar($id)
-    {
-        return $this->db
-            ->get_where('medicos', array('id' => $id))
-            ->row();
-    }
+  public function buscar($id)
+{
+    return $this->db
+        ->where('id', $id)
+        ->get('medicos')
+        ->row();
+}
 
     // Insere
     public function inserir($dados)
