@@ -10,3 +10,5 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['usuarios/cadastro'] = 'usuarios/cadastro';
 $route['usuarios/salvar'] = 'usuarios/salvar';
+
+
