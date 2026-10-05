@@ -23,23 +23,20 @@ class Auth extends CI_Controller
         $this->form_validation->set_rules(
             'email',
             'E-mail',
-            'required|valid_email'
+            'required|valid_email',
+            array(
+                'required' => 'O campo E-mail é obrigatório.',
+                'valid_email' => 'Digite um E-mail válido.'
+            )
         );
 
         $this->form_validation->set_rules(
             'senha',
             'Senha',
-            'required'
-        );
-
-        $this->form_validation->set_message(
             'required',
-            'O campo {field} é obrigatório.'
-        );
-
-        $this->form_validation->set_message(
-            'valid_email',
-            'Digite um e-mail válido.'
+            array(
+                'required' => 'O campo Senha é obrigatório.'
+            )
         );
 
         if ($this->form_validation->run() == FALSE) {
@@ -54,22 +51,21 @@ class Auth extends CI_Controller
 
         if ($usuario) {
 
-            $sessao = array(
-                'usuario_id'    => $usuario->id,
-                'usuario_nome'  => $usuario->nome,
-                'usuario_email' => $usuario->email,
-                'logado'        => TRUE
+            $this->session->set_userdata(
+                'usuario_logado',
+                $usuario
             );
-
-            $this->session->set_userdata($sessao);
 
             redirect('medicos');
 
         } else {
 
-            $data['erro'] = 'E-mail ou senha incorretos.';
+            $this->session->set_flashdata(
+                'erro',
+                'Usuário não cadastrado. Faça seu cadastro.'
+            );
 
-            $this->load->view('auth/login', $data);
+            redirect('usuarios/cadastro');
         }
     }
 
@@ -80,4 +76,3 @@ class Auth extends CI_Controller
         redirect('auth');
     }
 }
-
