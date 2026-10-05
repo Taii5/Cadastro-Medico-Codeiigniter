@@ -57,6 +57,7 @@
                                 id="email"
                                 name="email"
                                 value="<?= set_value('email'); ?>"
+                                placeholder = "Digite seu e-mail"
                                 required
                             >
 
@@ -76,6 +77,7 @@
                                 class="form-control"
                                 id="senha"
                                 name="senha"
+                                placeholder = "Digite sua senha"
                                 required
                             >
 
@@ -87,6 +89,13 @@
                         >
                             Entrar
                         </button>
+
+                        <div class="text-center mt-3">
+    <a href="<?= site_url('usuarios/cadastro'); ?>">
+        Ainda não tenho cadastro
+    </a>
+</div>
+
 
                     </form>
 
