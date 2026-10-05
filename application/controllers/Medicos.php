@@ -42,24 +42,24 @@ public function __construct()
     //Executado quando o formulário de cadastro é executado
 
  public function salvar()
-    {
-$this->validar_formulario();
+{
+    $this->validar_formulario();
 
-if ($this->form_validation->run() == FALSE) {
-    $this->novo();
-    return;
-}
+        if ($this->form_validation->run() == FALSE) {
+            $this->novo();
+
+            return;
+        }
         
         //Array com os dados que serão enviados pelo formulário de cadastro
         $dados = array(
             'nome_completo' => $this->input->post('nome_completo', TRUE),
-            'cpf' => $this->input->post('email', TRUE),
+            'cpf' => preg_replace('/[^0-9]/', '', $this->input->post('cpf', TRUE)),
             'crm' => $this->input->post('crm', TRUE),
             'especialidade' => $this->input->post('especialidade', TRUE),
-            'telefone' => $this->input->post('telefone', TRUE),
+            'telefone' => preg_replace('/[^0-9]/', '', $this->input->post('telefone', TRUE)),
             'email' => $this->input->post('email', TRUE)
         );
-
         // DADO ESPECÍFICO: Verifica se o CRM já existe
         if ($this->Medico_model->crm_existe($dados['crm'])) {//CONDIÇÃO PARA SABER SE EXISTE NO BANCO
 
@@ -125,10 +125,10 @@ if ($this->form_validation->run() == FALSE) {
 
         $dados = array(
             'nome_completo' => $this->input->post('nome_completo', TRUE),
-            'cpf' => $this->input->post('cpf', TRUE),
+            'cpf' => preg_replace('/[^0-9]/', '', $this->input->post('cpf', TRUE)),
             'crm' => $this->input->post('crm', TRUE),
             'especialidade' => $this->input->post('especialidade', TRUE),
-            'telefone' => $this->input->post('telefone', TRUE),
+            'telefone' => preg_replace('/[^0-9]/', '', $this->input->post('telefone', TRUE)),
             'email' => $this->input->post('email', TRUE)
         );
 
@@ -211,15 +211,15 @@ private function validar_formulario()
         )
     );
 
-    //CPF
-    $this->form_validation->set_rules(
-        'cpf',
-        'Cpf',
-        'required|numeric|exact_length[11]',
+   
+ // CPF
+$this->form_validation->set_rules(
+    'cpf',
+    'CPF',
+    'required|callback_validar_cpf',
     array(
         'required' => 'O campo CPF é obrigatório.',
-        'numeric' => 'O CPF deve conter apenas números.',
-        'exact_length' => 'O CPF deve ter exatamente 11 dígitos.'
+        'validar_cpf' => 'Digite um CPF válido.'
     )
 );
 
@@ -247,15 +247,15 @@ private function validar_formulario()
         )
     );
 
-    // TELEFONE
-    $this->form_validation->set_rules(
-        'telefone',
-        'Telefone',
-        'required|numeric|exact_length[11]',
+    
+   // TELEFONE
+$this->form_validation->set_rules(
+    'telefone',
+    'Telefone',
+    'required|callback_validar_telefone',
     array(
         'required' => 'O campo Telefone é obrigatório.',
-        'numeric' => 'O Telefone deve conter apenas números.',
-        'exact_length' => 'O Telefone deve ter exatamente 11 dígitos.'
+        'validar_telefone' => 'O Telefone deve ter exatamente 11 números.'
     )
 );
 
@@ -271,6 +271,80 @@ private function validar_formulario()
     )
 );
 }
+
+// Validação do CPF
+public function validar_cpf($cpf)
+{
+    // Remove pontos, traços e outros caracteres
+    $cpf = preg_replace('/[^0-9]/', '', $cpf);
+
+    // Verifica se possui exatamente 11 números
+    if (strlen($cpf) != 11) {
+        return FALSE;
+    }
+
+    // Impede CPFs com todos os números iguais
+    if (preg_match('/^(\d)\1{10}$/', $cpf)) {
+        return FALSE;
+    }
+
+    // Cálculo do primeiro dígito
+    $soma = 0;
+
+    for ($i = 0; $i < 9; $i++) {
+        $soma += $cpf[$i] * (10 - $i);
+    }
+
+    $resto = $soma % 11;
+
+    if ($resto < 2) {
+        $digito1 = 0;
+    } else {
+        $digito1 = 11 - $resto;
+    }
+
+    // Confere o primeiro dígito
+    if ($cpf[9] != $digito1) {
+        return FALSE;
+    }
+
+    // Cálculo do segundo dígito
+    $soma = 0;
+
+    for ($i = 0; $i < 10; $i++) {
+        $soma += $cpf[$i] * (11 - $i);
+    }
+
+    $resto = $soma % 11;
+
+    if ($resto < 2) {
+        $digito2 = 0;
+    } else {
+        $digito2 = 11 - $resto;
+    }
+
+    // Confere o segundo dígito
+    if ($cpf[10] != $digito2) {
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
+// Validação do telefone
+public function validar_telefone($telefone)
+{
+    // Remove máscara: espaços, parênteses, hífen etc.
+    $telefone = preg_replace('/[^0-9]/', '', $telefone);
+
+    // Telefone brasileiro com DDD = 11 números
+    if (strlen($telefone) != 11) {
+        return FALSE;
+    }
+
+    return TRUE;
+}
+
 }
 
 
