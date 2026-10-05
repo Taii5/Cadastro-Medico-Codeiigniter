@@ -66,50 +66,47 @@
                      <?= form_error('nome_completo', '<div style="color:red;">', '</div>'); ?>
 
                 </div>
+<div class="mb-3">
 
-				 <!-- CPF -->
-				 <div class="col-md-6 mb-3">
+    <label class="form-label">
+        CPF *
+    </label>
 
-                    <label class="form-label">
-                        CPF *
-                    </label>
+    <input
+        type="text"
+        name="cpf"
+        id="cpf"
+        class="form-control"
+        placeholder="Digite seu CPF"
+        maxlength="14"
+        value="<?= $medico ? html_escape($medico->cpf) : set_value('cpf'); ?>"
+    >
 
-                    <input
-                        type="text"
-                        name="cpf"
-                        id = "cpf"
-                        class="form-control <?= form_error('cpf') ? 'is-invalid' : '' ?>"
-                        value="<?= $medico ? html_escape($medico->cpf) : set_value('cpf'); ?>"
-                        placeholder = "Digite seu CPF"
-                    >
+    <?= form_error('cpf', '<div style="color:red;">', '</div>'); ?>
 
-                    <?= form_error('cpf', '<div style="color:red;">', '</div>'); ?>
-
-                </div>
+</div>
 
                 <!-- CRM E ESPECIALIDADE -->
-                <div class="row">
+                <div class="mb-3">
+
+    <label class="form-label">
+        CRM *
+    </label>
+
+    <input
+        type="text"
+        name="crm"
+        class="form-control"
+        placeholder="Digite seu CRM"
+        value="<?= $medico ? html_escape($medico->crm) : set_value('crm'); ?>"
+    >
+
+    <?= form_error('crm', '<div style="color:red;">', '</div>'); ?>
+
+</div>
+
 
                     <div class="mb-3">
-
-                        <label class="form-label">
-                        CRM *
-                        </label>
-
-                        <input
-                        type="text"
-                        name="crm"
-                        class="form-control" 
-                        value="<?= $medico ? html_escape($medico->crm) : set_value('crm'); ?>"
-                        placeholder = "Digite seu CRM"
-                        > 
-
-                       <?= form_error('crm', '<div style="color:red;">', '</div>'); ?>
-
-                    </div>
-
-
-                    <div class="col-md-6 mb-3">
 
                         <label class="form-label">
                             Especialidade *
@@ -131,44 +128,45 @@
 
 
                 <!-- TELEFONE -->
-                <div class="col-md-6 mb-3">
+                
+<div class="mb-3">
 
-                    <label class="form-label">
-                        Telefone *
-                    </label>
+    <label class="form-label">
+        Telefone *
+    </label>
 
-                    <input
-                        type="text"
-                        name="telefone"
-                        id = 'telefone'
-                        class="form-control <?= form_error('telefone') ? 'is-invalid' : '' ?>"
-                        value="<?= $medico ? html_escape($medico->telefone) : set_value('telefone'); ?>"
-                        placeholder = "Digite seu telefone"
-                    >
+    <input
+        type="text"
+        name="telefone"
+        id="telefone"
+        class="form-control"
+        placeholder="Digite seu telefone"
+        value="<?= $medico ? html_escape($medico->telefone) : set_value('telefone'); ?>"
+    >
 
-                    <?= form_error('telefone', '<div style="color:red;">', '</div>'); ?>
+    <?= form_error('telefone', '<div style="color:red;">', '</div>'); ?>
 
-                </div>
+</div>
 
 
-                <!-- EMAIL -->
-                <div class="col-md-6 mb-3">
+<!-- E-MAIL -->
+<div class="mb-3">
 
-                    <label class="form-label">
-                        E-mail *
-                    </label>
+    <label class="form-label">
+        E-mail *
+    </label>
 
-                    <input
-                        type="email"
-                        name="email"
-                        class="form-control <?= form_error('email') ? 'is-invalid' : '' ?>"
-                        value="<?= $medico ? html_escape($medico->email) : set_value('email'); ?>"
-                        placeholder = "Digite seu e-mail"
-                    >
+    <input
+        type="email"
+        name="email"
+        class="form-control"
+        placeholder="Digite seu e-mail"
+        value="<?= $medico ? html_escape($medico->email) : set_value('email'); ?>"
+    >
 
-                    <?= form_error('email', '<div style="color:red;">', '</div>'); ?>
+    <?= form_error('email', '<div style="color:red;">', '</div>'); ?>
 
-                </div>
+</div>
 
                 <!-- BOTÕES -->
                 <div class="d-flex justify-content-end gap-2">
