@@ -16,6 +16,9 @@
             background-color: #f4f6f9;
         }
 
+        .nome-medico {
+    text-transform: uppercase;
+}
         .navbar {
             background-color: #0d6efd;
         }
@@ -140,14 +143,14 @@
             >
 
                 <div class="input-group">
-
-                    <input
-                        type="text"
-                        name="busca"
-                        class="form-control"
-                        placeholder="Pesquisar por nome ou CRM..."
-                        value="<?= html_escape($this->input->get('busca')); ?>"
-                    >
+            <input
+                type="text"
+                name="busca"
+                class="form-control"
+                placeholder="Pesquisar por Nome ou CRM"
+                value="<?= isset($busca) ? $busca : ''; ?>"
+                oninput="this.value = this.value.toUpperCase();"
+            >
 
                     <button
                         type="submit"
@@ -198,9 +201,9 @@
 
                                 <tr>
 
-                                    <td class="fw-semibold">
-                                        <?= html_escape($medico->nome_completo); ?>
-                                    </td>
+                                   <td class="nome-medico">
+    <?= html_escape($medico->nome_completo); ?>
+</td>
 
                                     <td>
                                         <?= html_escape($medico->crm); ?>
@@ -278,3 +281,6 @@
 
 </body>
 </html>
+
+
+
