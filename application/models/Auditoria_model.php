@@ -3,15 +3,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auditoria_model extends CI_Model
 {
-    //Registra a ação, antes e depois de cada medico (historico)
+    // Registra a ação realizada no médico
     public function registrar($acao, $medico_id, $antes, $depois)
     {
         $dados = array(
             'acao' => $acao,
             'medico_id' => $medico_id,
             'data_hora' => date('Y-m-d H:i:s'),
-            'dados_antes' => $antes ? json_encode($antes): null,
-            'dados_depois' => $depois ? json_encode($depois): null
+            'dados_antes' => $antes
+                ? json_encode($antes, JSON_UNESCAPED_UNICODE)
+                : null,
+            'dados_depois' => $depois
+                ? json_encode($depois, JSON_UNESCAPED_UNICODE)
+                : null
         );
 
         return $this->db->insert(
@@ -20,6 +24,7 @@ class Auditoria_model extends CI_Model
         );
     }
 
+    // Lista o histórico das alterações
     public function listar()
     {
         $this->db->select(
