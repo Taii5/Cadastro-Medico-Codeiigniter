@@ -202,7 +202,7 @@
                     href="<?= site_url('medicos'); ?>"
                     class="btn btn-primary"
                 >
-                    ← Voltar 
+                    Voltar 
                 </a>
 
             </div>
