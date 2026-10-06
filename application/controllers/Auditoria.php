@@ -19,8 +19,13 @@ class Auditoria extends CI_Controller
 
     public function index()
     {
+        // Busca os registros da auditoria
         $dados['auditorias'] = $this->Auditoria_model->listar();
 
-        $this->load->view('auditoria/antes_depois', $dados);
+        // Carrega a tela de auditoria
+        $this->load->view(
+            'auditoria/antes_depois',
+            $dados
+        );
     }
 }
