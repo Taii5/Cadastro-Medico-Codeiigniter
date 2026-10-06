@@ -132,7 +132,7 @@
                     href="<?= site_url('medicos/novo'); ?>"
                     class="btn btn-primary"
                 >
-                    + Novo médico
+                     Novo médico
                 </a>
 
             </div>
@@ -202,8 +202,8 @@
                                 <tr>
 
                                    <td class="nome-medico">
-    <?= html_escape($medico->nome_completo); ?>
-</td>
+                                        <?= html_escape($medico->nome_completo); ?>
+                                   </td>
 
                                     <td>
                                         <?= html_escape($medico->crm); ?>
