@@ -107,4 +107,5 @@ class Medico_model extends CI_Model
         ->get('medicos')
         ->num_rows() > 0;
 }
+
 }
