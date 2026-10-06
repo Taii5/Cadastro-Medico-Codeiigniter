@@ -46,6 +46,12 @@
                 }
             ?>
 
+<?php if (!empty($erro)): ?>
+    <div class="alert alert-danger">
+        <?= html_escape($erro); ?>
+    </div>
+<?php endif; ?>
+
             <form method="post" action="<?= $action ?>">
 
                 <!-- NOME -->
