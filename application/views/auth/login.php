@@ -91,10 +91,10 @@
                         </button>
 
                         <div class="text-center mt-3">
-    <a href="<?= site_url('usuarios/cadastro'); ?>">
-        Ainda não tenho cadastro
-    </a>
-</div>
+                             <a href="<?= site_url('usuarios/cadastro'); ?>">
+                                Ainda não tenho cadastro
+                             </a>
+                        </div>
 
 
                     </form>
